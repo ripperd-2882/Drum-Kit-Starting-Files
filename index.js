@@ -8,19 +8,20 @@ document.querySelector("button").addEventListener("click", handleClick)
 function handleClick() {
 
     this.style.color = "#FEFAE0"
-    // alert("I got clicked");
-    // var audio =new Audio("sounds/tom-1.mp3");
-    // audio.play();
 
     var buttonInnerHTML = this.innerHTML;
     makeSound(buttonInnerHTML);
 
+    buttonAnimation(buttonInnerHTML);
+
 }
-document.addEventListener("keydown", function (event) {
-    makeSound(event.key);
-})
 
 //Detecting keyboard press
+document.addEventListener("keydown", function (event) {
+    makeSound(event.key);
+    buttonAnimation(event.key);
+})
+
 function makeSound(key) {
 
     switch (key) {
@@ -61,4 +62,13 @@ function makeSound(key) {
 
         default: console.log(buttonInnerHTML);
     }
+}
+
+function buttonAnimation(currentKey) {
+    var activeButton=document.querySelector("."+currentKey);
+    activeButton.classList.add("pressed");
+
+    setTimeout(function(){
+        activeButton.classList.remove("pressed");
+    }, 100);
 }
